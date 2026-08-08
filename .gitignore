@@ -1,0 +1,19 @@
+# MongoDB data
+data/
+
+# Environment variables
+.env
+
+# Java
+backend/target/
+*.log
+
+# Frontend
+frontend/node_modules
+frontend/build/
+frontend/dist/
+
+# IDE
+.idea/
+.vscode/
+*.iml
