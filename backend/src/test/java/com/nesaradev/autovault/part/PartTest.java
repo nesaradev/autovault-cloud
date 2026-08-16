@@ -1,6 +1,7 @@
 package com.nesaradev.autovault.part;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -95,5 +96,20 @@ public class PartTest {
         part.setMinimumStockLevel(5);
         part.addStock(6);
         assertEquals(StockStatus.IN_STOCK, part.getStockStatus());
+    }
+
+    @Test
+    void deactivateChangesActiveStatusToFalse() {
+        Part part = new Part();
+        part.deactivate();
+        assertFalse(part.isActive());
+    }
+
+    @Test
+    void activateChangesInactivePartToActive() {
+        Part part = new Part();
+        part.deactivate();
+        part.activate();
+        assertTrue(part.isActive());
     }
 }
