@@ -37,4 +37,39 @@ public class PartTest {
         assertEquals("amount must be greater than 0", exception.getMessage());
         assertEquals(0, part.getQuantity());
     }
+
+    @Test
+    void removeStockDecreasesQuantity() {
+        Part part = new Part();
+        part.addStock(10);
+        part.removeStock(4);
+        assertEquals(6, part.getQuantity());
+    }
+
+    @Test
+    void removeStockRejectsZeroAmount() {
+        Part part = new Part();
+        part.addStock(10);
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> part.removeStock(0));
+        assertEquals("amount must be greater than 0", exception.getMessage());
+        assertEquals(10, part.getQuantity());
+    }
+
+    @Test
+    void removeStockRejectsNegativeAmount() {
+        Part part = new Part();
+        part.addStock(10);
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> part.removeStock(-1));
+        assertEquals("amount must be greater than 0", exception.getMessage());
+        assertEquals(10, part.getQuantity());
+    }
+
+    @Test
+    void removeStockRejectsAmountGreaterThanQuantity() {
+        Part part = new Part();
+        part.addStock(5);
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> part.removeStock(6));
+        assertEquals("Insufficient stock", exception.getMessage());
+        assertEquals(5, part.getQuantity());
+    }
 }
