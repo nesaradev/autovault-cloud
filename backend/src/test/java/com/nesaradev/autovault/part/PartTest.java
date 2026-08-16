@@ -72,4 +72,28 @@ public class PartTest {
         assertEquals("Insufficient stock", exception.getMessage());
         assertEquals(5, part.getQuantity());
     }
+
+    @Test
+    void stockStatusIsLowWhenQuantityEqualsMinimumStockLevel() {
+        Part part = new Part();
+        part.setMinimumStockLevel(5);
+        part.addStock(5);
+        assertEquals(StockStatus.LOW_STOCK, part.getStockStatus());
+    }
+
+    @Test
+    void stockStatusIsLowWhenQuantityIsBelowMinimumStockLevel() {
+        Part part = new Part();
+        part.setMinimumStockLevel(5);
+        part.addStock(3);
+        assertEquals(StockStatus.LOW_STOCK, part.getStockStatus());
+    }
+
+    @Test
+    void stockStatusIsInStockWhenQuantityIsAboveMinimumStockLevel() {
+        Part part = new Part();
+        part.setMinimumStockLevel(5);
+        part.addStock(6);
+        assertEquals(StockStatus.IN_STOCK, part.getStockStatus());
+    }
 }
